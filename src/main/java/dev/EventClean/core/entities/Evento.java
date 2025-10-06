@@ -12,6 +12,6 @@ public record Evento(
         LocalDateTime dataFim,
         String identificador,
         TipoEvento tipoEvento,
-        String local,
+        String localEvento,
         String organizador
 ) {}
