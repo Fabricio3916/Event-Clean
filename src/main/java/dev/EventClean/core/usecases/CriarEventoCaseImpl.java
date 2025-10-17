@@ -14,10 +14,6 @@ public class CriarEventoCaseImpl implements CriarEventoCase {
 
     @Override
     public Evento execute(Evento evento) {
-        if (eventoGateway.existePorIdentificador(evento.identificador())){
-            throw new DuplicateEventException
-                    ("O identificador numero: " + evento.identificador() + " já está em uso.");
-        }
         return eventoGateway.criarEvento(evento);
     }
 

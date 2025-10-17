@@ -14,7 +14,7 @@ public class FiltroIdentificadorUsecaseImpl implements FiltroIdentificadorUsecas
 
     @Override
     public Evento execute(String identificador) {
-        return gateway.buscarPorIdentificador(identificador)
-                .orElseThrow( () -> new NotFoundEventException("Evento com identificador: " + identificador + " não encontrado"));
+        return gateway.buscarPorIdentificador(identificador).orElse(null);
+
     }
 }

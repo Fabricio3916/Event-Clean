@@ -2,10 +2,11 @@ package dev.EventClean.infrastructure.gateway;
 
 import dev.EventClean.core.entities.Evento;
 import dev.EventClean.core.gateway.EventoGateway;
+import dev.EventClean.infrastructure.exceptions.DuplicateEventException;
+import dev.EventClean.infrastructure.exceptions.NotFoundEventException;
 import dev.EventClean.infrastructure.mappers.EventoEntityMapper;
 import dev.EventClean.infrastructure.persistence.EventoEntity;
 import dev.EventClean.infrastructure.persistence.EventoRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public class EventoRepositoryGateway implements EventoGateway {
 
     @Override
     public Evento criarEvento(Evento evento) {
+        if (this.existePorIdentificador(evento.identificador())){
+            throw new DuplicateEventException
+                    ("O identificador numero: " + evento.identificador() + " já está em uso.");
+        }
         EventoEntity entity = entityMapper.toEntity(evento);
         EventoEntity novoEvento = repository.save(entity);
         return entityMapper.toDomain(novoEvento);
@@ -36,7 +41,6 @@ public class EventoRepositoryGateway implements EventoGateway {
         return eventos.stream()
                .map(entityMapper::toDomain)
                .toList();
-
     }
 
     @Override
@@ -47,7 +51,10 @@ public class EventoRepositoryGateway implements EventoGateway {
 
     @Override
     public Optional<Evento> buscarPorIdentificador(String identificador) {
-        return repository.findByIdentificador(identificador);
+        return Optional.ofNullable(repository.findByIdentificador(identificador)
+                .orElseThrow(
+                        () -> new NotFoundEventException
+                                ("Evento com identificador: " + identificador + " não encontrado")));
     }
 
 }

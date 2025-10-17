@@ -35,7 +35,7 @@ public class EventoController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("listarevento")
+    @GetMapping("listareventos")
     public List<EventoDTO> listaevento() {
        return buscarEventosCase.execute().stream().map(mapper::toEventoDTO).toList();
     }
