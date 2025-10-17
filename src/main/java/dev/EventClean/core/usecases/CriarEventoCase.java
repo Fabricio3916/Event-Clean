@@ -2,8 +2,8 @@ package dev.EventClean.core.usecases;
 
 import dev.EventClean.core.entities.Evento;
 
-public interface criarEventoCase {
+public interface CriarEventoCase {
 
-    public Evento execute(Evento evemtp);
+    public Evento execute(Evento evento);
 
 }
