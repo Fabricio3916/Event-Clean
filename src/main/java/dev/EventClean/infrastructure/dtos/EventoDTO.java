@@ -1,10 +1,12 @@
-package dev.EventClean.core.entities;
+package dev.EventClean.infrastructure.dtos;
 
 import dev.EventClean.core.enums.TipoEvento;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 
-public record Evento(
+
+public record EventoDTO (
         Long id,
         String nome,
         String descricao,
@@ -12,7 +14,9 @@ public record Evento(
         LocalDateTime dataFim,
         String identificador,
         TipoEvento tipoEvento,
-        Integer capacidade,
         String localEvento,
-        String organizador
-) {}
+        String organizador,
+        Integer capacidade
+) {
+
+}
