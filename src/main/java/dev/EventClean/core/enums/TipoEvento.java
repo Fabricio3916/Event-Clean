@@ -4,7 +4,7 @@ public enum TipoEvento {
 
     WORKSHOP,
     PALESTRA,
-    MUSCICA,
+    MUSICA,
     SEMINARTIO
 
 }
