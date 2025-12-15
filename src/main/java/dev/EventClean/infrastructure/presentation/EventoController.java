@@ -36,8 +36,12 @@ public class EventoController {
     }
 
     @GetMapping("listareventos")
-    public List<EventoDTO> listaevento() {
-       return buscarEventosCase.execute().stream().map(mapper::toEventoDTO).toList();
+    public ResponseEntity<Map<String, Object>> listaevento() {
+       List<EventoDTO> listaEventos = buscarEventosCase.execute().stream().map(mapper::toEventoDTO).toList();
+       Map<String, Object> response = new HashMap<>();
+       response.put("Mensagem:", "Lista de eventos");
+       response.put("Dados dos eventos: ", listaEventos);
+       return ResponseEntity.ok(response);
     }
 
     @GetMapping("{identificador}")
